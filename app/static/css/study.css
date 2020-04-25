@@ -1,0 +1,23 @@
+.text{
+     font-size:20px;
+     color:red;
+     font-weight:bold;
+     }
+body .text:hover{
+size:40px;
+color:blue
+}
+#chart1 {
+width:1000px;
+height:600px;
+position:relative;
+text-align:center;
+border:1px solid black;
+}
+#chart2 {
+width:1000px;
+height:20px;
+position:absolute;
+top:0px;
+border-bottom:3px solid black;
+}

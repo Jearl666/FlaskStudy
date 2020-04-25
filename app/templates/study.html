@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单标签</title>
+    <link href="../static/css/study.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+</head>
+<body>
+<hr>
+<form method="post">
+    <label for="username">用户名：</label>
+    <input type="text" name="username" id="username" placeholder="请输入用户名" >
+    <label for ="password">密码：</label>
+    <input type="password" name="password" id="password" placeholder="请输入密码">
+    <input type="submit" value="确定" name="submit">
+    <input type="reset" value="重置" name="reset"><br>
+<label for="textarea">请输入内容:</label><br>
+<textarea cols="100" rows="5" id="textarea" placeholder="请输入内容"></textarea>
+</form>
+<hr>
+<span class="text">文字测试区</span>
+<hr>
+<form>
+    <label>请选择：</label>
+    <select>
+        <option value="喜欢" selected="selected">喜欢</option>
+        <option value="不喜欢">不喜欢</option>
+        <option value="厌恶">厌恶</option>
+    </select>
+</form>
+<hr>
+<hr>
+<div id="chart1" class="chart">
+    <div id="chart2">My Fist Trend Chart</div>
+</div>
+<script>
+    var chart=echarts.init(document.getElementById('chart1'),{renderer: 'canvas'});
+    $.get('http://127.0.0.1:5000/static/text/data.csv',
+    function(record)
+    {
+    record = record.split(/\n/);
+    var data = [];
+    for (var i = 0; i < record.length; i++)
+    {
+    var t = record[i].split(",");
+
+    for (var y = 0; y < t.length; y++)
+    { if (!data[i]) data[i] = [];
+    data[i][y] = t[y]; }
+    }
+
+    option = {
+    dataset: {
+        source: data
+    },
+tooltip: {
+        trigger: 'axis',
+ formatter: "{c}%"
+
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: [
+    {name:'move'},
+    {name:'ratio',
+    type:'value',
+    axisLabel: {
+            show: true,
+            interval: 'auto',
+            formatter: '{value}'+'%'
+        }
+
+
+
+    }]
+    ,
+    series: [
+                {type: 'bar'},
+                {type: 'line',yAxisIndex:1,
+                label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}%'
+                        }
+                }
+             ]
+};
+chart.setOption(option);
+
+    }
+    );
+
+</script>
+
+</body>
+</html>
+
+
+
+
